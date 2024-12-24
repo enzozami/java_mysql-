@@ -43,11 +43,19 @@ public class FrameSelect extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblContatos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Consulta de Contatos");
+        jLabel1.setText("CONSULTA DE CONTATOS REGISTRADOS");
 
         jLabel2.setText("Termo da Pesquisa");
 
@@ -143,13 +151,13 @@ public class FrameSelect extends javax.swing.JFrame {
         String sql = "SELECT *, date_format(data_nasc, '%d/%m/$Y') AS nascimento FROM contato WHERE id = ? OR nome LIKE ? OR celular LIKE ?";
         
         try {
-            //Preparação da instrução SQL
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            //Fornecimento dos parâmetros
+            
             preparedStatement.setString(1, termo);
             preparedStatement.setString(2, "%" + termo + "%");
             preparedStatement.setString(3, "%" + termo + "%");
-            //Execução da consulta 
+       
+            
             ResultSet resultadoConsulta = preparedStatement.executeQuery();
             
             while (resultadoConsulta.next()){
@@ -161,7 +169,8 @@ public class FrameSelect extends javax.swing.JFrame {
                 String celular = resultadoConsulta.getString("celular");
                 String email = resultadoConsulta.getString("email");
                 String dataNasc = resultadoConsulta.getString("data_nasc");
-                //Inserindo as linhas da tabela
+                
+                //Inserir dados na tabela
                 String contato[] = {id, nome, cpf, telefone, celular, email, dataNasc};
                 tableModel.addRow(contato);
             }
@@ -170,6 +179,58 @@ public class FrameSelect extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao analisar consulta...Erro:" + e.getMessage());
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DataBaseConnector dbConnector = new DataBaseConnector();
+        Connection connection = dbConnector.getConnection();
+        
+        //Alteração da tabela padrão
+        //Alteração necessária para personalização de algumas ações da tabela
+        DefaultTableModel tableModel = (DefaultTableModel) tblContatos.getModel();
+        
+        //Reset das linhas das tabelas
+        tableModel.setRowCount(0);
+        
+        //Captura do termo da pesquisa
+        String termo = txtTermo.getText();
+        
+        //Instrução SQL
+        String sql = "SELECT *, date_format(data_nasc, '%d/%m/$Y') AS nascimento FROM contato";
+        
+        try {
+            //Preparação da instrução SQL
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            //Execução da consulta 
+            ResultSet resultadoConsulta = preparedStatement.executeQuery();
+            
+            while (resultadoConsulta.next()){
+                //Captura dos atributos da linha atual
+                String id = resultadoConsulta.getString("id");
+                String nome = resultadoConsulta.getString("nome");
+                String cpf = resultadoConsulta.getString("cpf");
+                String telefone = resultadoConsulta.getString("telefone");
+                String celular = resultadoConsulta.getString("celular");
+                String email = resultadoConsulta.getString("email");
+                String dataNascimento = resultadoConsulta.getString("data_nasc");
+                
+                //Inserindo as linhas da tabela
+                String contato[] = {id, nome, cpf, telefone, celular, email, dataNascimento};
+                tableModel.addRow(contato);
+            }
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao analisar consulta...Erro:" + e.getMessage());
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        FrameMain frameMain = new FrameMain();
+        frameMain.setVisible(true);
+        frameMain.setLocationRelativeTo(null);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

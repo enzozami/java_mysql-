@@ -7,6 +7,8 @@ package frames;
 import database.DataBaseConnector;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -32,10 +34,10 @@ public class FrameMain extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCadastro = new javax.swing.JButton();
+        btnConsulta = new javax.swing.JButton();
+        btnAtualizacao = new javax.swing.JButton();
+        btnExclusao = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
@@ -54,26 +56,41 @@ public class FrameMain extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton3.setText("Cadastro");
-        jButton3.setToolTipText("");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastro.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnCadastro.setText("Cadastro");
+        btnCadastro.setToolTipText("");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCadastroActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton4.setText("Consulta");
-        jButton4.setToolTipText("");
+        btnConsulta.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnConsulta.setText("Consulta");
+        btnConsulta.setToolTipText("");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton5.setText("Atualização");
-        jButton5.setToolTipText("");
+        btnAtualizacao.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnAtualizacao.setText("Atualização");
+        btnAtualizacao.setToolTipText("");
+        btnAtualizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizacaoActionPerformed(evt);
+            }
+        });
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton6.setText("Exclusão");
-        jButton6.setToolTipText("");
+        btnExclusao.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnExclusao.setText("Exclusão");
+        btnExclusao.setToolTipText("");
+        btnExclusao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExclusaoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -90,13 +107,13 @@ public class FrameMain extends javax.swing.JFrame {
                 .addGap(199, 199, 199))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton3)
+                .addComponent(btnCadastro)
                 .addGap(30, 30, 30)
-                .addComponent(jButton4)
+                .addComponent(btnConsulta)
                 .addGap(30, 30, 30)
-                .addComponent(jButton5)
+                .addComponent(btnAtualizacao)
                 .addGap(30, 30, 30)
-                .addComponent(jButton6)
+                .addComponent(btnExclusao)
                 .addContainerGap(30, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -107,10 +124,10 @@ public class FrameMain extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(btnCadastro)
+                    .addComponent(btnConsulta)
+                    .addComponent(btnAtualizacao)
+                    .addComponent(btnExclusao))
                 .addGap(41, 41, 41)
                 .addComponent(jButton1)
                 .addGap(60, 60, 60))
@@ -135,14 +152,66 @@ public class FrameMain extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         // TODO add your handling code here:
         FrameInsert frameInsert = new FrameInsert();
         frameInsert.setVisible(true);
         frameInsert.setLocationRelativeTo(null);
         this.dispose();
+    }//GEN-LAST:event_btnCadastroActionPerformed
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+        FrameSelect frameSelect = new FrameSelect();
+        frameSelect.setVisible(true);
+        frameSelect.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnConsultaActionPerformed
+
+    private void btnAtualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizacaoActionPerformed
+        // TODO add your handling code here:
+        FrameUpdate frameUpdate = new FrameUpdate();
+        frameUpdate.setLocationRelativeTo(null);
+        frameUpdate.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAtualizacaoActionPerformed
+
+    private void btnExclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExclusaoActionPerformed
+        // TODO add your handling code here:
+        String idStr = JOptionPane.showInputDialog("Forneça o ID do contato a ser excluído");
+        int id;
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Erro ao realizar conversão: " + e.getMessage(),
+                    "Conversão",
+                    JOptionPane.ERROR_MESSAGE);
+            
+            return;
+        }
+        DataBaseConnector dbConnector = new DataBaseConnector();
+        Connection connection = dbConnector.getConnection();
+        
+        String sql = "DELETE FROM contato WHERE id = ?";
+        
+        try {
+            PreparedStatement prepStatement = connection.prepareStatement(sql);
+            prepStatement.setInt(1, id);
+            
+            int contatoRemovido = prepStatement.executeUpdate();
+            
+            if(contatoRemovido > 0) {
+                JOptionPane.showMessageDialog(null, "Contato removido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Contato não encontrado....");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar remover contato. Erro: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnExclusaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,12 +251,12 @@ public class FrameMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizacao;
+    private javax.swing.JButton btnCadastro;
+    private javax.swing.JButton btnConsulta;
+    private javax.swing.JButton btnExclusao;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

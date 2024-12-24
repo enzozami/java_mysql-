@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class DataBaseConnector {
     private final String URL = "jdbc:mysql://localhost:3306/agenda";
     private final String USER = "root";
-    private final String PASSWD = "";
+    private final String PASSWD = "root";
     //Objeto responsável por armazenar a conexão
     Connection connection = null;
     
